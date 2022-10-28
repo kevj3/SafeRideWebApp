@@ -3,16 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>SafeRide</title>
+    <style>
+        body{
+    text-align:center;
+    }
+
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+     }
+
+    li {
+     float: left;
+    }
+
+    li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+    background-color: #111;
+    }
+
+    .active {
+      background-color: #04AA6D;
+    }
+
+    h1 {
+    text-align:center
+    }
+    </style>
+
     <h1>SafeRide</h1>
+
+    <ul>
+    <li><a href="">Home</a></li>
+    <li><a href="map">Map</a></li>
+    <li><a href="SafeRide">Contact</a></li>
+    </ul>
+
 </head>
 <body>
 <h2>Our Mission</h2>
-<p>Safe Ride of Gunnison encourages the responsible use of alcohol and safer roads by providing non-judgmental “No Questions Asked” rides and promoting alcohol education and awareness programs to the Gunnison community.
+<p>Safe Ride of Gunnison encourages the responsible use of alcohol
+    and safer roads by providing non-judgmental “No Questions Asked”
+    rides and promoting alcohol education and awareness programs to the Gunnison community.
     Safe Ride is dedicated to improving the safety of Western students and the Gunnison community.
+</p>
 
-Safe Ride’s objectives:
+<p>Safe Ride’s objectives:</p>
+<p>To offer free, safe shuttle service in and around the
+    City of Gunnison—primarily for the use of Western students,
+    community members and visitors who have been drinking alcohol—as a transportation alternative.
+To offer service as frequently as is feasible given the amount of financial support received from
+    the City of Gunnison, Western Colorado University and the Gunnison community.</p>
 
-To offer free, safe shuttle service in and around the City of Gunnison—primarily for the use of Western students, community members and visitors who have been drinking alcohol—as a transportation alternative.
-To offer service as frequently as is feasible given the amount of financial support received from the City of Gunnison, Western Colorado University and the Gunnison community.</p>
+<form action="/saferide">
+  <label>Location:</label><br>
+    <input type="text"><br>
+    <input type="submit" value="Submit">
+</form>
+
 </body>
+
+
 </html>

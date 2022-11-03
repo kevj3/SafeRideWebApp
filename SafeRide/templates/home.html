@@ -1,77 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SafeRide</title>
-    <style>
-        body{
-    text-align:center;
-    }
+{% extends "base.html"%}
+{% block title %} SafeRide {% endblock %}
+{% block body %}
+<style>
+form { max-width:420px; margin:50px auto; }
 
-    ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-     }
+.feedback-input {
+  color:black;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight:500;
+  font-size: 18px;
+  border-radius: 5px;
+  line-height: 22px;
+  background-color: transparent;
+  border:2px solid #CC6666;
+  transition: all 0.3s;
+  padding: 13px;
+  margin-bottom: 15px;
+  width:100%;
+  box-sizing: border-box;
+  outline:0;
+}
 
-    li {
-     float: left;
-    }
+.feedback-input:focus { border:2px solid #CC4949; }
 
-    li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    }
+textarea {
+  height: 150px;
+  line-height: 150%;
+  resize:vertical;
+}
 
-    li a:hover:not(.active) {
-    background-color: #111;
-    }
+[type="submit"] {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  width: 100%;
+  background:#CC6666;
+  border-radius:5px;
+  border:0;
+  cursor:pointer;
+  color:white;
+  font-size:24px;
+  padding-top:10px;
+  padding-bottom:10px;
+  transition: all 0.3s;
+  margin-top:-4px;
+  font-weight:700;
+}
+[type="submit"]:hover { background:#CC4949; }
+</style>
 
-    .active {
-      background-color: #04AA6D;
-    }
-
-    h1 {
-    text-align:center
-    }
-    </style>
-
-    <h1>SafeRide</h1>
-
-    <ul>
-    <li><a href="">Home</a></li>
-    <li><a href="map">Map</a></li>
-    <li><a href="SafeRide">Contact</a></li>
-    </ul>
-
-</head>
-<body>
-<h2>Our Mission</h2>
-<p>Safe Ride of Gunnison encourages the responsible use of alcohol
-    and safer roads by providing non-judgmental “No Questions Asked”
-    rides and promoting alcohol education and awareness programs to the Gunnison community.
-    Safe Ride is dedicated to improving the safety of Western students and the Gunnison community.
-</p>
-
-<p>Safe Ride’s objectives:</p>
-<p>To offer free, safe shuttle service in and around the
-    City of Gunnison—primarily for the use of Western students,
-    community members and visitors who have been drinking alcohol—as a transportation alternative.
-To offer service as frequently as is feasible given the amount of financial support received from
-    the City of Gunnison, Western Colorado University and the Gunnison community.</p>
-
-<form action="/saferide">
-  <label>Location:</label><br>
-    <input type="text"><br>
-    <input type="submit" value="Submit">
+<form action='/' method = "post">
+  <input name="name" type="text" class="feedback-input" placeholder="Name" />
+  <input name="phone" type="text" class="feedback-input" placeholder="Phone number" />
+  <input name="pick" type="text" class="feedback-input" placeholder="Pick up Location" />
+  <input name="drop" type="text" class="feedback-input" placeholder="Drop off Location" />
+  <textarea name="comment" class="feedback-input" placeholder="Comments"></textarea>
+  <input type="submit" name="submit" value="SUBMIT"/>
 </form>
 
-</body>
-
-
-</html>
+<a class="shameless-plug" href="/login" target="_blank">Driver</a>
+{% endblock %}

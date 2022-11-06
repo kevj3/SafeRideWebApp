@@ -1,5 +1,45 @@
-{% extends "base.html"%}
-{% block title %} SafeRide {% endblock %}
+{% extends "base.html" %}
+{% block title %} Rides {% endblock %}
 {% block body %}
+
+<style>
+    table {
+border-collapse: collapse;
+margin-left: auto;
+  margin-right: auto;
+}
+
+table, th, td {
+  border: 1px solid blue;
+  background-color:white;
+  color:black;
+  padding: 10px;
+}
+</style>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Phone Number</th>
+    <th>Pick up Address</th>
+    <th>Drop off Address</th>
+    <th>Comments</th>
+
+  </tr>
+
+{% for i in ride %}
+    <tr>
+    <td>{{i.id}}</td>
+    <td> {{i.name}}</td>
+    <td> {{i.phone}}  </td>
+    <td> {{i.pickup}}  </td>
+    <td> {{i.dropoff}} </td>
+    <td> {{i.comments}}  </td>
+    <td><a href="/player/update/{{i.id}}">Accept Ride</a></td>
+    <td><a href="/player/delete/{{i.id}}">Complete</a></td>
+    </tr>
+{% endfor %}
+</table>
 
 {% endblock %}

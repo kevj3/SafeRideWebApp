@@ -3,8 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_required, LoginManager, login_user, logout_user, current_user, UserMixin
 
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rides_database.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rides.db'
 db = SQLAlchemy(app)
 
 
@@ -17,10 +16,10 @@ db = SQLAlchemy(app)
 #     username = db.Column(db.String(80))
 #     password = db.Column(db.String(80))
 #
-class rides(db.Model):
+class Rides(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
-    phone = db.Column(db.Integer)
+    phone = db.Column(db.String(80))
     pickup = db.Column(db.String(80))
     dropoff = db.Column(db.String(80))
     comment = db.Column(db.String(80))
@@ -29,12 +28,12 @@ class rides(db.Model):
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        ride = rides()
-        ride.name = request.form['name']
-        ride.phone = request.form['phone']
-        ride.pickup = request.form['pick']
-        ride.dropoff = request.form['drop']
-        ride.comment = request.form['comment']
+        name = request.form['name']
+        phone = request.form['phone']
+        pickup = request.form['pick']
+        dropoff = request.form['drop']
+        comment = request.form['comment']
+        ride = Rides(name=name, phone=phone, pickup=pickup, dropoff=dropoff, comment=comment)
 
         db.session.add(ride)
         db.session.commit()
@@ -42,9 +41,10 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/ride')
-def ride():
-    return render_template('ride.html')
+@app.route('/rides')
+def rides():
+    ride = Rides.query.all()
+    return render_template("ride.html", ride=ride)
 
 
 @app.route('/AboutUs')

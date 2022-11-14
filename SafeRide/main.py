@@ -1,21 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import login_required, LoginManager, login_user, logout_user, current_user, UserMixin
+from flask_login import login_required, login_manager, login_user, logout_user, current_user, UserMixin, LoginManager
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rides.db'
 db = SQLAlchemy(app)
 
 
-# app.config['SECRET_KEY'] = 'saferide'
-# login_manager = LoginManager(app)
-# login_manager.init_app(app)
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
-# class Driver(UserMixin, db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(80))
-#     password = db.Column(db.String(80))
-#
+
+app.config['SECRET_KEY'] = 'saferide'
+login_manager = LoginManager(app)
+login_manager.init_app(app)
+
+
+class Driver(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80))
+    password = db.Column(db.String(80))
+
+
 class Rides(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
@@ -43,18 +50,13 @@ def home():
 
 @app.route('/rides')
 def rides():
-    ride = Rides.query.all()
-    return render_template("ride.html", ride=ride)
+    r = Rides.query.all()
+    return render_template("ride.html", r=r)
 
 
 @app.route('/AboutUs')
 def aboutus():
     return render_template('about.html')
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
 
 
 @app.errorhandler(404)
@@ -65,6 +67,24 @@ def err404(err):
 @app.errorhandler(401)
 def err401(err):
     return render_template('error.html')
+
+@login_manager.user_loader
+def user_loader(uid):
+    user = Driver.query.get(uid)
+    return user
+
+@app.route('/login', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = Driver.query.filter_by(username=username).first()
+        if user != None:
+            if password == user.password:
+                login_user(user)
+                return 'SUCCESS'
+            return 'FAIL'
+    return render_template("login.html")
 
 
 if __name__ == '__main__':

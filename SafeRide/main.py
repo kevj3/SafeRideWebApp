@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, request
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy, query
 from flask_login import login_required, login_manager, login_user, logout_user, current_user, UserMixin, LoginManager
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ class Rides(db.Model):
     phone = db.Column(db.String(80))
     pickup = db.Column(db.String(80))
     dropoff = db.Column(db.String(80))
-    comment = db.Column(db.String(80))
+    comments = db.Column(db.String(80))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -39,19 +39,43 @@ def home():
         phone = request.form['phone']
         pickup = request.form['pick']
         dropoff = request.form['drop']
-        comment = request.form['comment']
-        ride = Rides(name=name, phone=phone, pickup=pickup, dropoff=dropoff, comment=comment)
+        comments = request.form['comment']
+        ride = Rides(name=name, phone=phone, pickup=pickup, dropoff=dropoff, comments=comments)
 
         db.session.add(ride)
         db.session.commit()
-        return "<h1>Success</h1>"
+        return redirect('/confirmation/' + name)
     return render_template('home.html')
 
 
 @app.route('/rides')
 def rides():
-    r = Rides.query.all()
-    return render_template("ride.html", r=r)
+    ride = Rides.query.all()
+    return render_template("ride.html", ride=ride)
+
+@app.route('/confirmation/<name>')
+def confirm(name):
+    return render_template("confirmation.html",name=name)
+
+
+@app.route('/ControlPanel')
+@login_required
+def driver():
+    ride = Rides.query.all()
+    return render_template("driver.html", ride=ride)
+
+@app.route('/ControlPanel/<id>')
+def delete(id):
+    ride = Rides.query.filter_by(id=id).first()
+    db.session.delete(ride)
+    db.session.commit()
+    return redirect(url_for('driver'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return render_template('Logout.html')
 
 
 @app.route('/AboutUs')
@@ -68,10 +92,12 @@ def err404(err):
 def err401(err):
     return render_template('error.html')
 
+
 @login_manager.user_loader
 def user_loader(uid):
     user = Driver.query.get(uid)
     return user
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def index():
@@ -82,7 +108,7 @@ def index():
         if user != None:
             if password == user.password:
                 login_user(user)
-                return 'SUCCESS'
+                return redirect(url_for('driver'))
             return 'FAIL'
     return render_template("login.html")
 

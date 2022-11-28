@@ -21,6 +21,10 @@ table, th, td {
   <tr>
     <th>ID</th>
     <th>Name</th>
+    <th>Phone Number</th>
+    <th>Pick up Address</th>
+    <th>Drop off Address</th>
+    <th>Comments</th>
 
   </tr>
 
@@ -28,8 +32,16 @@ table, th, td {
     <tr>
     <td>{{i.id}}</td>
     <td> {{i.name}}</td>
+    <td> {{i.phone}}  </td>
+    <td> {{i.pickup}}  </td>
+    <td> {{i.dropoff}} </td>
+    <td> {{i.comments}}  </td>
+    <td><a href="/Accept/{{i.id}}">Accept Ride</a></td>
+    <td><a href="/ControlPanel/{{i.id}}">Complete</a></td>
     </tr>
 {% endfor %}
 </table>
+
+<a id="logout" href="/logout">Logout</a>
 
 {% endblock %}

@@ -47,6 +47,10 @@ textarea {
 [type="submit"]:hover { background:#CC4949; }
 </style>
 
+<h2 class="info">Hello Welcome to SafeRide</h2>
+<h4 class="info">Enter your information to schedule a ride</h4>
+<h4 class="info">You will receive a text notification when saferide is on it's way</h4>
+
 <form action='/' method = "post">
   <input name="name" type="text" class="feedback-input" placeholder="Name" />
   <input name="phone" type="text" class="feedback-input" placeholder="Phone number" />
@@ -56,5 +60,6 @@ textarea {
   <input type="submit" name="submit" value="SUBMIT"/>
 </form>
 
-<a class="shameless-plug" href="/login" target="_blank">Driver</a>
+<a class="driver" href="/login" target="_blank">Driver</a>
+<a class="cpanel" href="/ControlPanel" target="_blank">Control Panel</a>
 {% endblock %}

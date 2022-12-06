@@ -47,11 +47,10 @@ textarea {
 [type="submit"]:hover { background:#CC4949; }
 </style>
 
-<h1 class="info">Welcome to SafeRide</h1>
-<h3 class="info">Enter your information to schedule a ride</h3>
-<h4 class="info">You will receive a Email notification when SafeRide is on it's way!</h4>
+<h1 class="info">ADD RIDE</h1>
 
-<form action='/' method = "post">
+
+<form action='/ControlPanel/add' method = "post">
   <input name="name" type="text" class="feedback-input" placeholder="Name" />
   <input name="phone" type="text" class="feedback-input" placeholder="Email Address" />
   <input name="pick" type="text" class="feedback-input" placeholder="Pick up Location" />
@@ -60,7 +59,6 @@ textarea {
   <input type="submit" name="submit" value="SUBMIT"/>
 </form>
 
-<p align="center"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6240.719102978374!2d-106.92067925529896!3d38.548529052486124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x873f92d177da1501%3A0x9aa5fc1ddb4a49ee!2sWestern%20Colorado%20University!5e0!3m2!1sen!2sus!4v1669835718632!5m2!1sen!2sus" width=500 height="500"></iframe></p>
 <a class="driver" href="/login" target="_blank">Driver</a>
 <a class="cpanel" href="/ControlPanel" target="_blank">Control Panel</a>
 {% endblock %}

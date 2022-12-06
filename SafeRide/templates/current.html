@@ -16,31 +16,23 @@ table, th, td {
   padding: 10px;
 }
 </style>
-
+<h1>Current Ride for {{ride.name}}</h1>
 <table>
   <tr>
-    <th>ID</th>
     <th>Name</th>
     <th>Email Address</th>
     <th>Pick up Address</th>
     <th>Drop off Address</th>
     <th>Comments</th>
-    <th><a href="/ControlPanel/add">ADD RIDE</a></th>
   </tr>
 
-{% for i in ride %}
     <tr>
-    <td>{{i.id}}</td>
-    <td> {{i.name}}</td>
-    <td> {{i.phone}} </td>
-    <td> {{i.pickup}} </td>
-    <td> {{i.dropoff}} </td>
-    <td> {{i.comments}} </td>
-    <td><a href="/ControlPanel/Accept/{{i.id}}">Accept Ride</a></td>
-    <td><a href="/ControlPanel/Complete/{{i.id}}">Complete</a></td>
+    <td> {{ride.name}}</td>
+    <td> {{ride.phone}} </td>
+    <td> {{ride.pickup}} </td>
+    <td> {{ride.dropoff}} </td>
+    <td> {{ride.comments}} </td>
+    <td><a href="/ControlPanel/Complete/{{ride.id}}">Complete</a></td>
     </tr>
-{% endfor %}
 </table>
-<a id="logout" href="/logout">Logout</a>
-
 {% endblock %}
